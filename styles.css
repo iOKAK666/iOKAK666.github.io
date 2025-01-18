@@ -1,0 +1,101 @@
+﻿/* ตั้งค่าพื้นฐาน */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #fce4ec; /* สีชมพูอ่อน */
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* ตั้งค่าหัวข้อ */
+header h1 {
+    color: #ff3366; /* สีชมพูเข้ม */
+    font-size: 3em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+/* เพิ่มแอนิเมชันการกระโดด */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ส่วนเนื้อหาหลัก */
+section p {
+    font-size: 1.3em;
+    margin: 15px;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* แกลเลอรี่ภาพ */
+.gallery {
+    margin-top: 30px;
+    text-align: center;
+}
+
+    .gallery h2 {
+        color: #ff4081;
+        font-size: 2em;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+.image-container {
+    margin: 20px;
+    display: inline-block;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .image-container img {
+        width: 300px;
+        height: auto;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        /* เอฟเฟกต์เมื่อ hover บนภาพ */
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+/* ฟุตเตอร์ */
+footer p {
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: #ff3366;
+    font-weight: bold;
+}
+
+/* การตกแต่งเพิ่มเติม */
+button {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #ff3366;
+    }
