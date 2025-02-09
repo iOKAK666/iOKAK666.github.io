@@ -1,0 +1,174 @@
+local Player = game:GetService("Players")
+local LocalPlayer = Player.LocalPlayer
+local Char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Char:WaitForChild("Humanoid")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local GuiService = game:GetService("GuiService")
+ 
+-- โหลด UI
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+ 
+-- สร้าง UI
+local Window = Fluent:CreateWindow({
+    Title = "X HUB" .. Fluent.Version,
+    SubTitle = "by X HUB Team",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+ 
+Fluent:Notify({
+	Title = "X HUB",
+	Content = "by X HUB Team",
+	SubContent = "https://discord.gg/VkG5e8eTSM", -- Optional
+	Duration = 5 -- Set to nil to make the notification not disappear
+})
+
+
+-- แท็บ "ฟาม"
+local Tabs = {
+    Main = Window:AddTab({ Title = "ฟาม", Icon = "4483362458" }),
+    Settings = Window:AddTab({ Title = "เมนู", Icon = "" })
+} 
+-- Auto Farm Toggle
+local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "ออโต้ฟาม", Default = false })
+
+Toggle:OnChanged(function(v)
+        AutoFarm = v
+
+        local function Equipitem(item)
+            if LocalPlayer.Backpack:FindFirstChild(item) then
+                LocalPlayer.Backpack[item].Parent = LocalPlayer.Character
+            end
+        end
+ 
+        local function EquipRod()
+            for _, v in pairs(LocalPlayer.Backpack:GetChildren()) do
+                if v:IsA("Tool") and v.Name:lower():find("rod") then
+                    Equipitem(v.Name)
+                end
+            end
+        end
+        EquipRod()
+ 
+        task.spawn(function()
+            while AutoFarm do
+                wait(0.005)
+                local Rod = Char:FindFirstChildOfClass("Tool")
+                if Rod and Rod:FindFirstChild("events") then
+                    local castEvent = Rod.events:FindFirstChild("cast")
+                    if castEvent then
+                        castEvent:FireServer(100, 1)
+                    end
+                end
+            end
+        end)
+ 
+                -- AutoShake
+                        pcall(function()
+                            local tool = LocalPlayer.Character:FindFirstChildOfClass('Tool')
+                                if tool and tool:FindFirstChild("values") and tool.values.casted and tool.values.casted.Value == true then
+                                    local button = LocalPlayer.PlayerGui.shakeui.safezone.button
+                                        GuiService.SelectedObject = button
+                                        VirtualInputManager:SendKeyEvent(true, 13, false, game)
+                                        VirtualInputManager:SendKeyEvent(false, 13, false, game)
+                                end
+                            end
+                        end)
+ 
+                -- AutoReel
+                for _, v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+                    if v:IsA("ScreenGui") and v.Name == "reel" then
+                        if v:FindFirstChild("bar") then
+                            ReplicatedStorage.events.reelfinished:FireServer(100, true)
+                        end
+                    end
+                end
+ 
+        if not AutoFarm then 
+        end
+    end)
+end
+
+
+ 
+-- Auto Sell Toggle
+local Toggle = Tabs.Main:AddToggle("MyToggle1", {Title = "ออโต้ขาย", Default = false })
+
+Toggle:OnChanged(function(state)
+    if state then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(466.16, 151.00, 224.49)
+        task.wait(2)
+            game:GetService("ReplicatedStorage").events.SellAll:InvokeServer()
+        end
+    end
+end)
+ 
+-- แท็บ "วาป"
+TabTP = Window:AddTab({ Title = "วาป", Icon = "4483362458" }),
+SectionTP = Window:AddTab({ Title = "วาปไปยังเกาะต่างๆ", Icon = "" })
+
+
+Tabs.Main:AddButton({
+    Title = "วาปไป",
+    Description = name, position,
+    Callback = function()
+        localPlayer.Character.HumanoidRootPart.CFrame = position
+    end
+})
+local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+    Title = "Dropdown",
+    Values = {"Moosewood", "The Deep", "Vertigo", "Ancient Archives", "Forsaken Shores", "Sunstone Island", "Brine Poll", "1,000Meter", "Craft rod", "Ancient Isle"},
+    Multi = false,
+    Default = 1,
+})
+
+Dropdown:SetValue("")
+
+Dropdown:OnChanged(function(Value)
+    ("Moosewood", CFrame.new(381.57, 131.25, 293.93))
+("The Deep", CFrame.new(957.02, -713.06, 1251.66))
+("Vertigo", CFrame.new(-139.74, -507.46, 1134.57))
+("Ancient Archives", CFrame.new(-3159.14, -758.36, 2206.47))
+("Forsaken Shores", CFrame.new(-2519.73145, 136.524353, 1545.97485, 0.0344836712, 0.00717312424, -0.999379516, 0.0121394824, 0.99989748, 0.00759571511, 0.999331474, -0.0123938778, 0.0343930721))
+("Sunstone Island", CFrame.new(-915.185242, 131.32695, -1100.91748, -0.123890042, 0.00536394678, -0.992281437, 0.0432887524, 0.999062598, -4.15742397e-06, 0.991351247, -0.0429551415, -0.124006152))
+("Brine Poll", CFrame.new(-1797.19958, -146.065369, -3301.13892, -1, 0, 0, 0, 1, 0, 0, 0, -1))
+("1,000Meter", CFrame.new(19964.6094, 1135.48267, 5348.85742, -2.81333923e-05, -0.99785924, 0.0653986484, 1, -2.81333923e-05, 9.16421413e-07, 9.16421413e-07, 0.0653986484, 0.99785924))
+("Craft rod", CFrame.new(-3159.99512, -746.362732, 1678.68835, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+("Ancient Isle", CFrame.new(6066.96143, 192.130188, 293.140259, -0.438346624, 0, 0.898806036, 0, 1, 0, -0.898806036, 0, -0.438346624))
+
+end)
+
+("Moosewood", CFrame.new(381.57, 131.25, 293.93))
+("The Deep", CFrame.new(957.02, -713.06, 1251.66))
+("Vertigo", CFrame.new(-139.74, -507.46, 1134.57))
+("Ancient Archives", CFrame.new(-3159.14, -758.36, 2206.47))
+("Forsaken Shores", CFrame.new(-2519.73145, 136.524353, 1545.97485, 0.0344836712, 0.00717312424, -0.999379516, 0.0121394824, 0.99989748, 0.00759571511, 0.999331474, -0.0123938778, 0.0343930721))
+("Sunstone Island", CFrame.new(-915.185242, 131.32695, -1100.91748, -0.123890042, 0.00536394678, -0.992281437, 0.0432887524, 0.999062598, -4.15742397e-06, 0.991351247, -0.0429551415, -0.124006152))
+("Brine Poll", CFrame.new(-1797.19958, -146.065369, -3301.13892, -1, 0, 0, 0, 1, 0, 0, 0, -1))
+("1,000Meter", CFrame.new(19964.6094, 1135.48267, 5348.85742, -2.81333923e-05, -0.99785924, 0.0653986484, 1, -2.81333923e-05, 9.16421413e-07, 9.16421413e-07, 0.0653986484, 0.99785924))
+("Craft rod", CFrame.new(-3159.99512, -746.362732, 1678.68835, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+("Ancient Isle", CFrame.new(6066.96143, 192.130188, 293.140259, -0.438346624, 0, 0.898806036, 0, 1, 0, -0.898806036, 0, -0.438346624))
+ 
+local SectionTP = TabTP:CreateSection("วาปไปยังโทเท็ม")
+ 
+local function (name, position)
+    TabTP:CreateButton({
+        Name = "Totem " .. name,
+        Callback = function()
+            LocalPlayer.Character.HumanoidRootPart.CFrame = position
+        end
+    })
+end
+ 
+("Aurora", CFrame.new(-1808.73645, -137.651154, -3281.31055, 0.792334616, 0.502420366, 0.346092045, -0.609992683, 0.642438293, 0.46387732, 0.0107185543, -0.578659654, 0.815498769))
+("Smokescreen", CFrame.new(2790.72339, 136.69281, -628.271973, 0.756567597, -0.0209711827, 0.653579116, -0.0298632644, 0.997334719, 0.0665701628, -0.653233171, -0.0698828399, 0.753924906))
+("Windset", CFrame.new(2846.44629, 178.327072, 2702.86084, -0.464807749, -1.6823411e-05, -0.88541168, -0.13536568, 0.988245428, 0.0710431039, 0.875002801, 0.152875736, -0.459346414))
+("Tempest", CFrame.new(34.4847412, 129.702148, 1946.02917, 0.918256342, 0.305060059, 0.252475023, -0.395986468, 0.707371175, 0.585508943, 2.18898058e-05, -0.637624025, 0.770347714))
+("Sundial", CFrame.new(-1149.24084, 133.819946, -1077.53101, -0.735733032, 0, 0.677272201, 0, 1, 0, -0.677272201, 0, -0.735733032))
+("Eclipse", CFrame.new(5967.80078, 271.039246, 837.463867, -0.342006564, -0.939697623, -7.00354576e-06, 7.00354576e-06, -1.00135803e-05, 1, -0.939697623, 0.342006564, 1.00135803e-05))

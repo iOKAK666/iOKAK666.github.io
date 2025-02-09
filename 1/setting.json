@@ -1,0 +1,30 @@
+{
+    "files.associations": {
+      "*.lua": "lua"
+    },
+    "editor.quickSuggestions": {
+      "comments": "inline",
+      "other": "on",
+      "strings": "on"
+    },
+    "editor.wordBasedSuggestionsMode": "allDocuments",
+    "editor.tabCompletion": "on",
+    "editor.suggest.preview": true,
+    "editor.accessibilitySupport": "auto",
+    "editor.suggest.showTypeParameters": true,
+    "editor.quickSuggestionsDelay": 10,
+    "editor.suggest.showEnums": true,
+    "editor.semanticHighlighting.enabled": true,
+    "security.workspace.trust.enabled": false,
+    "terminal.integrated.gpuAcceleration": "off",
+    "workbench.colorTheme": "Default High Contrast",
+    "[lua]": {
+    
+      "editor.quickSuggestions": {
+        "comments": "inline",
+        "other": "on",
+        "strings": "on"
+      },
+      "editor.semanticHighlighting.enabled": true
+    }
+  }
